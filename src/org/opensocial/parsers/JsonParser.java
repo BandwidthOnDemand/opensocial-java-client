@@ -46,7 +46,7 @@ public class JsonParser implements Parser {
     if (version.equals("0.8")) {
       return getResponseMap0p8(json, modelClasses);
     } else if (version.equals("0.9")) {
-      return getResponseMap0p9(json, modelClasses);
+
     }
 
     return null;
@@ -214,61 +214,6 @@ public class JsonParser implements Parser {
     return response;
   }
 
-  private Map<String, Response> getResponseMap0p9(String json,
-      Map<String, Class<? extends Model>> modelClasses) {
-    Map<String, Response> responses = new HashMap<String, Response>();
-
-    JSONParser parser = new JSONParser();
-    ContainerFactory containerFactory = getContainerFactory(Model.class);
-
-    try {
-      List<Map> rootArray = (List<Map>) parser.parse(json, containerFactory);
-
-      for (Map responseObject : rootArray) {
-        String id = null;
-        Class<? extends Model> modelClass = null;
-        Response response = new Response();
-
-        if (responseObject.containsKey("id")) {
-          id = (String) responseObject.get("id");
-          modelClass = modelClasses.get(id);
-        }
-
-        if (responseObject.containsKey("result")) {
-          Map dataObject = (Map) responseObject.get("result");
-
-          if (dataObject.containsKey("startIndex")) {
-            response.setStartIndex(dataObject.get("startIndex"));
-          }
-          if (dataObject.containsKey("totalResults")) {
-            response.setTotalResults(dataObject.get("totalResults"));
-          }
-          if (dataObject.containsKey("list")) {
-            Object list = dataObject.get("list");
-            if (list.getClass().equals(JSONArray.class)) {
-              for (int i = 0; i < ((List) list).size(); i++) {
-                Model object = (Model) ((List) list).get(i);
-                response.getEntries().add(cloneModelObject(object,
-                    modelClass));
-              }
-            } else if (list.getClass().equals(JSONObject.class)) {
-              response.getEntries().add(cloneModelObject((Model) list,
-                  modelClass));
-            }
-          } else {
-            response.getEntries().add(cloneModelObject((Model) dataObject,
-                modelClass));
-          }
-        }
-
-        responses.put(id, response);
-      }
-    } catch (ParseException e) {
-      return null;
-    }
-
-    return responses;
-  }
   private static ContainerFactory getContainerFactory(
       final Class<? extends Model> modelClass) {
     ContainerFactory containerFactory = new ContainerFactory() {
