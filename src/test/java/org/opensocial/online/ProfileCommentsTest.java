@@ -18,9 +18,12 @@ package org.opensocial.online;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.IOException;
+
 import org.junit.Test;
 import org.opensocial.Client;
 import org.opensocial.Request;
+import org.opensocial.RequestException;
 import org.opensocial.Response;
 import org.opensocial.auth.OAuth2LeggedScheme;
 import org.opensocial.models.myspace.Comment;
@@ -30,25 +33,22 @@ import org.opensocial.services.myspace.ProfileCommentsService;
 public class ProfileCommentsTest {
 
   private static final String MYSPACE_KEY = "http://www.myspace.com/495182150";
-  private static final String MYSPACE_SECRET =
-    "20ab52223e684594a8050a8bfd4b06693ba9c9183ee24e1987be87746b1b03f8";
+  private static final String MYSPACE_SECRET = "20ab52223e684594a8050a8bfd4b06693ba9c9183ee24e1987be87746b1b03f8";
   private static final String MYSPACE_ID = "495184236";
 
   @Test
-  public void retrieve() {
-    try {
-      Client client = new Client(new MySpaceProvider(),
-          new OAuth2LeggedScheme(MYSPACE_KEY, MYSPACE_SECRET, MYSPACE_ID));
-      Request request = ProfileCommentsService.getComments();
-      Response response = client.send(request);
+  public void retrieve() throws RequestException, IOException {
 
-      Comment comment = response.getEntry();
-      assertTrue(comment.getId() != null);
-      assertTrue(comment.getBody() != null);
-      assertTrue(comment.getAuthorId() != null);
-      assertTrue(comment.getPostedDate() != null);
-    } catch (Exception e) {
-      fail("Exception occurred while processing request");
-    }
+    Client client = new Client(new MySpaceProvider(), new OAuth2LeggedScheme(
+        MYSPACE_KEY, MYSPACE_SECRET, MYSPACE_ID));
+    Request request = ProfileCommentsService.getComments();
+    Response response = client.send(request);
+
+    Comment comment = response.getEntry();
+    assertTrue(comment.getId() != null);
+    assertTrue(comment.getBody() != null);
+    assertTrue(comment.getAuthorId() != null);
+    assertTrue(comment.getPostedDate() != null);
+
   }
 }
