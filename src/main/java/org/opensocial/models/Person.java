@@ -15,13 +15,19 @@
 
 package org.opensocial.models;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
 import java.util.Map;
 
 /**
  * OpenSocial model class representing a person/user. For reference:
  * http://wiki.opensocial.org/index.php?title=Opensocial.Person_(v0.9)
- * http://www.opensocial.org/Technical-Resources/opensocial-spec-v09/REST-API.html#rfc.section.3.2
- *
+ * http://www
+ * .opensocial.org/Technical-Resources/opensocial-spec-v09/REST-API.html
+ * #rfc.section.3.2
+ * 
  * @author Jason Cooper
  */
 public class Person extends Model {
@@ -51,8 +57,8 @@ public class Person extends Model {
         if (nameMap.containsKey("givenName")) {
           name.append(nameMap.get("givenName"));
         }
-        if (nameMap.containsKey("givenName") &&
-            nameMap.containsKey("familyName")) {
+        if (nameMap.containsKey("givenName")
+            && nameMap.containsKey("familyName")) {
           name.append(" ");
         }
         if (nameMap.containsKey("familyName")) {
@@ -73,5 +79,17 @@ public class Person extends Model {
    */
   public String getThumbnailUrl() {
     return (String) getField("thumbnailUrl");
+  }
+
+  public String getEmail() {
+    String result = null;
+    List<Map<String, String>> emails = getFieldAsList("emails");
+    if (emails != null && emails.size() > 0) {
+      Map<String, String> map = emails.get(0);
+      if (map != null && map.containsKey("value")) {
+        result = map.get("value");
+      }
+    }
+    return result;
   }
 }
