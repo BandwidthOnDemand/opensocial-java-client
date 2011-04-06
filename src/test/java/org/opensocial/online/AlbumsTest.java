@@ -18,6 +18,10 @@ package org.opensocial.online;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.IOException;
+import java.util.List;
+
+import org.junit.Ignore;
 import org.junit.Test;
 import org.opensocial.Client;
 import org.opensocial.Request;
@@ -27,9 +31,6 @@ import org.opensocial.auth.OAuth2LeggedScheme;
 import org.opensocial.models.Album;
 import org.opensocial.providers.MySpaceProvider;
 import org.opensocial.services.AlbumsService;
-
-import java.io.IOException;
-import java.util.List;
 
 public class AlbumsTest {
 
@@ -54,6 +55,7 @@ public class AlbumsTest {
     }
   }
 
+  @Ignore
   @Test
   public void retrieveAlbum() {
     try {

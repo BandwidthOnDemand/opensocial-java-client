@@ -15,6 +15,8 @@
 
 package org.opensocial.models;
 
+import java.util.Map;
+
 /**
  * OpenSocial model class representing a group, which is used to tag or
  * categorize people and their relationships. For reference:
@@ -28,7 +30,13 @@ public class Group extends Model {
    * Returns the group's unique identifier.
    */
   public String getId() {
-    return getFieldAsString("id");
+    Object field = getField("id");
+    try {
+      Map id = (Map) field;
+      return id != null ? (String) id.get("groupId") : null;
+    } catch (ClassCastException e) {
+      return getFieldAsString("id");
+    }
   }
 
   /**
