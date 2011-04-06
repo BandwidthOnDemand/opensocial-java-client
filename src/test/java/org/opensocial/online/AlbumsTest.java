@@ -93,6 +93,7 @@ public class AlbumsTest {
     }
   }
 
+  @Ignore
   @Test
   public void updateAlbum() {
     try {
