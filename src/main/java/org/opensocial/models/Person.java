@@ -83,12 +83,18 @@ public class Person extends Model {
 
   public String getEmail() {
     String result = null;
-    List<Map<String, String>> emails = getFieldAsList("emails");
+    List emails = getFieldAsList("emails");
     if (emails != null && emails.size() > 0) {
-      Map<String, String> map = emails.get(0);
-      if (map != null && map.containsKey("value")) {
-        result = map.get("value");
+      Object object = emails.get(0);
+      if (object instanceof String) {
+        result= (String) object;
+      } else if (object instanceof Map) {
+        Map map = (Map) object;
+        if (map != null && map.containsKey("value")) {
+          result = (String) map.get("value");
+        }
       }
+     
     }
     return result;
   }
