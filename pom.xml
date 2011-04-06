@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.google.code</groupId>
 	<artifactId>opensocial-java-client</artifactId>
-	<version>1.5-coin</version>
+	<version>1.6-coin</version>
 	<packaging>jar</packaging>
 	<name>opensocial-java-client</name>
 	<description>opensocial-java-client</description>

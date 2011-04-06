@@ -171,7 +171,8 @@ public class JsonParser implements Parser {
           response.getEntries().add((Model) rootObject.get("person"));
         } else if (rootObject.containsKey("entry")) {
           Object entry = rootObject.get("entry");
-          if (entry.getClass().equals(JSONArray.class)) {
+          Class<? extends Object> clazz = entry.getClass();
+          if (clazz.equals(JSONArray.class)) {
             for (int i = 0; i < ((List) entry).size(); i++) {
               Map currentEntry = (Map) ((List) entry).get(i);
               if (currentEntry.containsKey("person")) {
@@ -189,6 +190,9 @@ public class JsonParser implements Parser {
                 response.getEntries().add((Model) currentEntry);
               }
             }
+          } else {
+            Map currentEntry = (Map) entry;
+            response.getEntries().add((Model) currentEntry);
           }
         } else if (rootObject.containsKey("album")) {
           response.getEntries().add((Model) rootObject.get("album"));
