@@ -45,4 +45,11 @@ public class Group extends Model {
   public String getTitle() {
     return getFieldAsString("title");
   }
+  
+  /**
+   * Returns the group's description
+   */
+  public String getDescription() {
+    return getFieldAsString("description");
+  }
 }
