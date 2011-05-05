@@ -28,7 +28,7 @@ import java.util.Map;
  * @author Jason Cooper
  */
 public class ActivitiesService extends Service {
-
+//"/{userId}+/{groupId}/{appId}/{activityId}+")
   private static final String restTemplate = "activities/{guid}/{selector}/{appid}/{activityid}";
 
   /**
