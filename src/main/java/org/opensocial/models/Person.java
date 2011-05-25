@@ -15,9 +15,6 @@
 
 package org.opensocial.models;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
 import java.util.List;
 import java.util.Map;
 
@@ -27,21 +24,26 @@ import java.util.Map;
  * http://www
  * .opensocial.org/Technical-Resources/opensocial-spec-v09/REST-API.html
  * #rfc.section.3.2
- * 
+ *
  * @author Jason Cooper
  */
+@SuppressWarnings({"UnusedDeclaration"})
 public class Person extends Model {
 
   /**
    * Returns the user's OpenSocial ID.
+   *
+   * @return OpenSocial ID
    */
   public String getId() {
     return (String) getField("id");
   }
 
   /**
-   * Returns the user's display name or nickname; if neither field is set,
-   * "unknown" is returned.
+   * Returns the user's display name or nickname
+   *
+   * @return user's display name or nickname; if neither field is set,
+   *         {@literal unknown} is returned.
    */
   public String getDisplayName() {
     StringBuilder name = new StringBuilder();
@@ -58,7 +60,7 @@ public class Person extends Model {
           name.append(nameMap.get("givenName"));
         }
         if (nameMap.containsKey("givenName")
-            && nameMap.containsKey("familyName")) {
+                && nameMap.containsKey("familyName")) {
           name.append(" ");
         }
         if (nameMap.containsKey("familyName")) {
@@ -76,26 +78,45 @@ public class Person extends Model {
 
   /**
    * Returns the user's photo thumbnail URL as a string.
+   *
+   * @return String with the location of the thumbnail
    */
   public String getThumbnailUrl() {
     return (String) getField("thumbnailUrl");
   }
 
+  /**
+   * @return first known email address of the Person,
+   *         can be {@link null}
+   */
   public String getEmail() {
     String result = null;
     List emails = getFieldAsList("emails");
     if (emails != null && emails.size() > 0) {
       Object object = emails.get(0);
       if (object instanceof String) {
-        result= (String) object;
+        result = (String) object;
       } else if (object instanceof Map) {
         Map map = (Map) object;
-        if (map != null && map.containsKey("value")) {
+        if (map.containsKey("value")) {
           result = (String) map.get("value");
         }
       }
-     
+
     }
     return result;
+  }
+
+  /**
+   * Returns the guest status of the Person
+   *  
+   * @return {@literal true} if the Person is tagged as guest
+   */
+  public boolean isGuest() {
+    final List tags = getFieldAsList("tags");
+    if (tags != null && tags.contains("guest")) {
+      return true;
+    }
+    return false;
   }
 }
