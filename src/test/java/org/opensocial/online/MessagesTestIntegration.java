@@ -49,7 +49,7 @@ public class MessagesTestIntegration {
   private Client getShindigClient() {
     Provider provider = new ShindigProvider();
     String oauthKey = "does-not-matter";
-    String oauthSecret = "mysecret";
+    String oauthSecret = "2e/UbBTlwdTRoF5jbg5NDexU";
     String restEndpoint = "http://localhost:8080/social/rest/";
     provider.setRestEndpoint(restEndpoint);
     provider.setRpcEndpoint(null);
