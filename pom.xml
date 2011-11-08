@@ -1,9 +1,8 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.google.code</groupId>
   <artifactId>opensocial-java-client</artifactId>
-  <version>1.14.0-coin-SNAPSHOT</version>
+  <version>1.14.0-coin</version>
   <packaging>jar</packaging>
   <name>opensocial-java-client</name>
   <description>opensocial-java-client</description>
@@ -16,7 +15,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <scm>
-    <connection>scm:svn:https://svn.surfnet.nl/svn/coin-os/vendor/opensocial-java-client/trunk</connection>
+    <connection>scm:svn:https://svn.surfnet.nl/svn/coin-os/vendor/opensocial-java-client/tags/opensocial-java-client-1.14.0-coin</connection>
   </scm>
   <distributionManagement>
     <repository>
