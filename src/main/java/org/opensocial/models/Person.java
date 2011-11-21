@@ -27,7 +27,7 @@ import java.util.Map;
  *
  * @author Jason Cooper
  */
-@SuppressWarnings({"UnusedDeclaration"})
+@SuppressWarnings({ "UnusedDeclaration" })
 public class Person extends Model {
 
   /**
@@ -77,6 +77,48 @@ public class Person extends Model {
   }
 
   /**
+   * Returns the user's given name
+   *
+   * @return user's given name; if field is not set,
+   *         {@literal unknown} is returned.
+   */
+  public String getGivenName() {
+    Map nameMap = getFieldAsMap("name");
+    if (nameMap != null && isFieldMultikeyed("name")) {
+      if (nameMap.containsKey("givenName")) {
+        return nameMap.get("givenName").toString();
+      }
+    }
+    return "unknown";
+  }
+
+  /**
+   * Returns the user's family name
+   *
+   * @return user's family name; if field is not set,
+   *         {@literal unknown} is returned.
+   */
+  public String getFamliyName() {
+    Map nameMap = getFieldAsMap("name");
+    if (nameMap != null && isFieldMultikeyed("name")) {
+      if (nameMap.containsKey("familyName")) {
+        return nameMap.get("familyName").toString();
+      }
+    }
+    return "unknown";
+  }
+
+  public String getFormattedName() {
+    Map nameMap = getFieldAsMap("name");
+    if (nameMap != null && isFieldMultikeyed("name")) {
+      if (nameMap.containsKey("formatted")) {
+        return nameMap.get("formatted").toString();
+      }
+    }
+    return "unknown";
+  }
+
+  /**
    * Returns the user's photo thumbnail URL as a string.
    *
    * @return String with the location of the thumbnail
@@ -107,9 +149,17 @@ public class Person extends Model {
     return result;
   }
 
+  public String getVootMembershipRole() {
+    String vootMembershipRole = getField("voot_membership_role").toString();
+    if (vootMembershipRole != null) {
+      return vootMembershipRole;
+    }
+    return "unknown";
+  }
+
   /**
    * Returns the guest status of the Person
-   *  
+   *
    * @return {@literal true} if the Person is tagged as guest
    */
   public boolean isGuest() {
@@ -120,3 +170,4 @@ public class Person extends Model {
     return false;
   }
 }
+
