@@ -15,7 +15,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <scm>
-    <connection>scm:svn:https://svn.surfnet.nl/svn/coin-os/vendor/opensocial-java-client/trunk</connection>
+    <connection>scm:git:gitolite@atlas.dlp.surfnet.nl:opensocial-java-client</connection>
   </scm>
   <distributionManagement>
     <repository>
