@@ -15,6 +15,13 @@
 
 package org.opensocial;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Logger;
+
 import net.oauth.http.HttpMessage;
 
 import org.json.simple.JSONArray;
@@ -24,13 +31,6 @@ import org.opensocial.http.HttpClient;
 import org.opensocial.http.HttpClientImpl;
 import org.opensocial.http.HttpResponseMessage;
 import org.opensocial.providers.Provider;
-
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Logger;
 
 /**
  * OpenSocial RESTful client supporting both the RPC and REST protocols defined
@@ -150,7 +150,7 @@ public class Client {
    */
   public Map<String, Response> send(Map<String, Request> requests) throws
       RequestException, IOException {
-    if (requests.size() == 0) {
+    if (requests.isEmpty()) {
       throw new RequestException("Request queue is empty");
     }
 
@@ -201,8 +201,8 @@ public class Client {
     return responses;
   }
 
-  private Response submitRestRequest(Request request) throws RequestException,
-      IOException{
+  private Response submitRestRequest(Request request) throws
+      IOException, RequestException{
     Map<String, String> requestHeaders = new HashMap<String, String>();
     if (request.getContentType() != null) {
       requestHeaders.put(HttpMessage.CONTENT_TYPE, request.getContentType());
@@ -217,6 +217,10 @@ public class Client {
     HttpResponseMessage responseMessage = httpClient.execute(message);
 
     logger.finest(buildLogRecord(request, responseMessage));
+
+    if (responseMessage.getStatusCode() != HttpResponseMessage.STATUS_OK) {
+      throw new RequestException("Request was not successfull. Got reponse code " + responseMessage.getStatusCode());
+    }
 
     Response response = Response.parseRestResponse(request, responseMessage,
         provider.getVersion());
