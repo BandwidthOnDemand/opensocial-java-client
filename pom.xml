@@ -19,14 +19,14 @@
   </scm>
   <distributionManagement>
     <repository>
-      <id>coin-repo</id>
-      <name>coin-repo</name>
-      <url>dav:http://bamboo-dev.coin.surfnetlabs.nl</url>
+      <id>surfnet-releases</id>
+      <name>surfnet-releases</name>
+      <url>http://atlas.dlp.surfnet.nl/nexus/content/repositories/releases</url>
     </repository>
     <snapshotRepository>
-      <id>coin-repo</id>
-      <name>coin-repo</name>
-      <url>dav:http://bamboo-dev.coin.surfnetlabs.nl</url>
+      <id>surfnet-snapshots</id>
+      <name>surfnet-snapshots</name>
+      <url>http://atlas.dlp.surfnet.nl/nexus/content/repositories/snapshots</url>
     </snapshotRepository>
   </distributionManagement>
   <repositories>
