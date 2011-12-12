@@ -18,7 +18,14 @@ package org.opensocial;
 import static org.easymock.EasyMock.eq;
 import static org.easymock.EasyMock.isA;
 import static org.easymock.EasyMock.or;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 import net.oauth.http.HttpMessage;
 
@@ -32,14 +39,8 @@ import org.opensocial.http.HttpClient;
 import org.opensocial.http.HttpResponseMessage;
 import org.opensocial.providers.OrkutProvider;
 import org.opensocial.providers.Provider;
+import org.opensocial.providers.ShindigProvider;
 import org.opensocial.services.PeopleService;
-
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ClientTest {
 
@@ -69,6 +70,21 @@ public class ClientTest {
     return new ByteArrayInputStream(str.getBytes());
   }
 
+  @Test(expected = RequestException.class)
+  public void clientGetsAn404Response() throws RequestException, IOException {
+    IMocksControl mockControl = EasyMock.createControl();
+    HttpClient mockHttpClient = mockControl.createMock(HttpClient.class);
+
+    EasyMock.expect(mockHttpClient.execute(isA(HttpMessage.class))).andReturn(new HttpResponseMessage("", new URL("http://localhost"), 404));
+
+    Client client = new Client(new ShindigProvider(true), new OAuth2LeggedScheme(CONSUMER_KEY, CONSUMER_SECRET, VIEWER_ID), mockHttpClient);
+    Request request = new Request("/groups", null, "GET");
+
+    mockControl.replay();
+
+    client.send(request);
+  }
+
   @Test
   public void testSubmitRpcContentType() throws RequestException, IOException {
     IMocksControl mockControl = EasyMock.createControl();
@@ -92,6 +108,7 @@ public class ClientTest {
     EasyMock.expect(authScheme.getHttpMessage(eq(provider), eq("POST"),
         eq(rpcEndPoint), isA(Map.class), isA(byte[].class)))
         .andAnswer(new IAnswer<HttpMessage>() {
+          @Override
           public HttpMessage answer() throws Throwable {
             Map<String, String> requestHeaders =
               (Map<String, String>) EasyMock.getCurrentArguments()[3];
@@ -166,7 +183,7 @@ public class ClientTest {
     String rpcUrl1 = rpcUrl + "?key1=value1&key2=value2";
     String rpcUrl2 = rpcUrl + "?key2=value2&key1=value1";
 
-    EasyMock.expect(authScheme.getHttpMessage(eq(provider), eq("POST"), 
+    EasyMock.expect(authScheme.getHttpMessage(eq(provider), eq("POST"),
         or(eq(rpcUrl1), eq(rpcUrl2)), isA(Map.class), isA(byte[].class)))
         .andReturn(null);
 

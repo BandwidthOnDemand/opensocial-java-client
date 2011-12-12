@@ -75,8 +75,7 @@ public class AlbumsTest {
   }
 
   @Test
-  public void createAlbum() {
-    try {
+  public void createAlbum() throws RequestException, IOException {
       Client client = new Client(new MySpaceProvider(),
           new OAuth2LeggedScheme(MYSPACE_KEY, MYSPACE_SECRET, MYSPACE_ID));
 
@@ -88,9 +87,6 @@ public class AlbumsTest {
       Response response = client.send(request);
 
       assertTrue(response.getStatusLink() != null);
-    } catch (Exception e) {
-      fail("Exception occurred while processing request");
-    }
   }
 
   @Ignore

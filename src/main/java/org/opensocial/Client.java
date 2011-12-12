@@ -218,7 +218,7 @@ public class Client {
 
     logger.finest(buildLogRecord(request, responseMessage));
 
-    if (responseMessage.getStatusCode() != HttpResponseMessage.STATUS_OK) {
+    if (!statusCodeMeansSuccess(responseMessage.getStatusCode())) {
       throw new RequestException("Request was not successfull. Got reponse code " + responseMessage.getStatusCode());
     }
 
@@ -226,6 +226,10 @@ public class Client {
         provider.getVersion());
 
     return response;
+  }
+
+  private boolean statusCodeMeansSuccess(int statusCode) {
+    return ("" + statusCode).startsWith("20");
   }
 
   String buildRpcUrl(Map<String, Request> requests) {
