@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.google.code</groupId>
   <artifactId>opensocial-java-client</artifactId>
-  <version>1.16.2-bod-SNAPSHOT</version>
+  <version>1.16.2-bod</version>
   <packaging>jar</packaging>
   <name>opensocial-java-client</name>
   <description>opensocial-java-client</description>
@@ -25,6 +25,7 @@
     <developerConnection>scm:git:git@github.com:BandwidthOnDemand/opensocial-java-client.git</developerConnection>
     <connection>scm:git:git@github.com:BandwidthOnDemand/opensocial-java-client.git</connection>
     <url>https://github.com/BandwidthOnDemand/opensocial-java-client</url>
+    <tag>opensocial-java-client-1.16.2-bod</tag>
   </scm>
 
   <repositories>
