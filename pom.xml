@@ -2,117 +2,44 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.google.code</groupId>
   <artifactId>opensocial-java-client</artifactId>
-  <version>1.16.2-coin-SNAPSHOT</version>
+  <version>1.16.2-bod-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>opensocial-java-client</name>
   <description>opensocial-java-client</description>
+
+  <parent>
+    <groupId>nl.surfnet.bod</groupId>
+    <artifactId>bod-parent-pom</artifactId>
+    <version>0.1.1</version>
+  </parent>
+
   <properties>
     <commons-codec.version>1.4</commons-codec.version>
     <easymock.version>2.5.2</easymock.version>
     <json-simle.version>1.1</json-simle.version>
     <oauth.version>20090825</oauth.version>
     <orgjson.version>20080701</orgjson.version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+
   <scm>
-    <connection>scm:git:gitolite@atlas.dlp.surfnet.nl:opensocial-java-client</connection>
+    <developerConnection>scm:git:git@github.com:BandwidthOnDemand/opensocial-java-client.git</developerConnection>
+    <connection>scm:git:git@github.com:BandwidthOnDemand/opensocial-java-client.git</connection>
+    <url>https://github.com/BandwidthOnDemand/opensocial-java-client</url>
   </scm>
-  <distributionManagement>
-    <repository>
-      <id>surfnet-releases</id>
-      <name>surfnet-releases</name>
-      <url>http://atlas.dlp.surfnet.nl/nexus/content/repositories/releases</url>
-    </repository>
-    <snapshotRepository>
-      <id>surfnet-snapshots</id>
-      <name>surfnet-snapshots</name>
-      <url>http://atlas.dlp.surfnet.nl/nexus/content/repositories/snapshots</url>
-    </snapshotRepository>
-  </distributionManagement>
+
   <repositories>
     <repository>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <id>coin-repo</id>
-      <name>COIN Repository</name>
-      <url>http://bamboo-dev.coin.surfnetlabs.nl</url>
-    </repository>
-    <repository>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
       <id>oauth-maven-repo</id>
       <name>OAuth Maven repository</name>
       <url>http://oauth.googlecode.com/svn/code/maven</url>
       <layout>default</layout>
     </repository>
-    <repository>
-      <id>maven2-repository.dev.java.net</id>
-      <name>Java.net Repository for Maven</name>
-      <url>http://download.java.net/maven/2</url>
-      <layout>default</layout>
-    </repository>
   </repositories>
 
-  <build>
-    <plugins>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>2.3.2</version>
-        <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-source-plugin</artifactId>
-        <version>2.1.2</version>
-        <executions>
-          <execution>
-            <id>attach-sources</id>
-            <phase>verify</phase>
-            <goals>
-              <goal>jar-no-fork</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-release-plugin</artifactId>
-        <version>2.1</version>
-      </plugin>
-      <plugin>
-        <groupId>com.atlassian.maven.plugins</groupId>
-        <artifactId>maven-clover2-plugin</artifactId>
-        <version>3.0.2</version>
-        <configuration>
-          <licenseLocation>/home/bamboo/clover.license</licenseLocation>
-        </configuration>
-      </plugin>
-    </plugins>
-    <extensions>
-      <extension>
-        <groupId>org.apache.maven.wagon</groupId>
-        <artifactId>wagon-webdav</artifactId>
-        <version>1.0-beta-2</version>
-      </extension>
-    </extensions>
-  </build>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.8.1</version>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>commons-codec</groupId>
